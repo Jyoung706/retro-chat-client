@@ -7,7 +7,7 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [showCursor, setShowCursor] = useState(true);
-  const fullTitle = "서른하나 스물일곱";
+  const fullTitle = "90's 채팅";
 
   useEffect(() => {
     let index = 0;
