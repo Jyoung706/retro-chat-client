@@ -10,30 +10,3 @@
   font-wieght: normal;
   font-style: normal;
 }
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-input {
-  caret-color: transparent;
-}
-
-input::after {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 1.2em;
-  background-color: white;
-  animation: blink 1s infinite;
-}
-
-body {
-  font-family: "DungGeunMo", sans-serif;
-}
