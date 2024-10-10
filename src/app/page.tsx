@@ -1,19 +1,30 @@
 export default function Home() {
-  const announce = [
-    "### 레드로 채팅에 오신걸 환영합니다. ###",
-    "### 회원일 경우 /login을 통해 로그인합니다. ###",
-    "### 회원이 아닐경우 /signin을 통해 회원가입합니다. ###",
-  ];
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [title, setTitle] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+  const fullTitle = "90's 채팅";
 
-  return (
-    <div className=''>
-      <ul>
-        {announce.map((el, index) => (
-          <li className='mb-2' key={index}>
-            {el}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  useEffect(() => {
+    let index = 0;
+    const typingInterval = setInterval(() => {
+      if (index < fullTitle.length) {
+        setTitle(() => fullTitle.slice(0, index + 1));
+        index++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 150);
+
+    const cursorInterval = setInterval(() => {
+      setShowCursor((prev) => !prev);
+    }, 500);
+
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, []);
+
+  return <div className=''></div>;
 }
