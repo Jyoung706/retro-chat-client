@@ -1,18 +1,26 @@
 import { create } from "zustand";
 
 interface InputStore {
-  input: string;
-  setInput: (input: string) => void;
-  clearInput: () => void;
+  prompt: string;
+  currentState: string;
+  commandMapper: { [key: string]: string };
+  setInput: (propmpt: string) => void;
+  processCommand: () => void;
 }
 
-const inputStore = create<InputStore>((set) => ({
-  input: "",
-  setInput: (input: string) => {
-    set({ input });
-    return input;
+const inputStore = create<InputStore>((set, get) => ({
+  prompt: "",
+  currentState: "initial",
+  commandMapper: {
+    "/login": "login",
+    "/signin": "signin",
   },
-  clearInput: () => set({ input: "" }),
+  setInput: (prompt: string) => set({ prompt }),
+  processCommand: () => {
+    const { prompt, commandMapper } = get();
+    const newState = commandMapper[prompt.toLowerCase()] || "initial";
+    set({ currentState: newState, prompt: "" });
+  },
 }));
 
 export default inputStore;

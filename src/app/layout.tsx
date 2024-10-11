@@ -15,7 +15,7 @@ export default function RootLayout({
   const title = "Back to 90's";
   return (
     <html lang='ko'>
-      <body className='min-h-screen bg-blue-900 p-4 text-white'>
+      <body className='flex flex-col min-h-screen bg-blue-900 text-white'>
         <header className='text-center'>
           <h1 className='text-[4rem] font-bold'>{title}</h1>
           <div
@@ -25,8 +25,10 @@ export default function RootLayout({
             {"=".repeat(500)}
           </div>
         </header>
-        <main>{children}</main>
-        <footer className='fixed bottom-0 left-0 right-0 h-10'>
+        <main className='flex-grow overflow-y-auto pl-4 text-2xl'>
+          {children}
+        </main>
+        <footer className='h-10'>
           <CommandInput />
         </footer>
       </body>
