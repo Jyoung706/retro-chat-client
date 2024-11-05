@@ -1,5 +1,3 @@
-"use client";
-
 export default function Home() {
   const announce = [
     "### 레드로 채팅에 오신걸 환영합니다. ###",

@@ -1,17 +1,20 @@
 "use client";
 
 import inputStore from "@/store/inputStore";
+import { useState } from "react";
 
 const CommandInput: React.FC = () => {
-  const { prompt, setInput, processCommand } = inputStore();
+  const [inputValue, setInputValue] = useState("");
+  const { processCommand } = inputStore();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
+    setInputValue(e.target.value);
   };
 
   const handleInputKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      processCommand();
+      processCommand(inputValue);
+      setInputValue("");
     }
   };
 
@@ -22,7 +25,7 @@ const CommandInput: React.FC = () => {
         className='bg-transparent ml-3 w-full focus:outline-none'
         type='text'
         placeholder='명령어를 입력하세요'
-        value={prompt}
+        value={inputValue}
         onChange={handleInputChange}
         onKeyUp={handleInputKeyUp}
       />

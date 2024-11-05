@@ -1,25 +1,33 @@
 import { create } from "zustand";
 
+type InputReturnType = {
+  type: string;
+  value: string;
+};
 interface InputStore {
-  prompt: string;
-  currentState: string;
   commandMapper: { [key: string]: string };
-  setInput: (propmpt: string) => void;
-  processCommand: () => void;
+  processCommand: (value: string) => InputReturnType;
 }
 
 const inputStore = create<InputStore>((set, get) => ({
-  prompt: "",
-  currentState: "initial",
   commandMapper: {
-    "/login": "login",
-    "/signin": "signin",
+    login: "login",
+    signin: "signin",
   },
-  setInput: (prompt: string) => set({ prompt }),
-  processCommand: () => {
-    const { prompt, commandMapper } = get();
-    const newState = commandMapper[prompt.toLowerCase()] || "initial";
-    set({ currentState: newState, prompt: "" });
+  processCommand: (value) => {
+    const isCommand = value.includes("/");
+    if (isCommand) {
+      const userCommand = value.split("/")[1].toLowerCase();
+      console.log(userCommand);
+      return {
+        type: "command",
+        value: userCommand,
+      };
+    }
+    return {
+      type: "normal",
+      value,
+    };
   },
 }));
 
