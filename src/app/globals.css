@@ -10,3 +10,17 @@
   font-wieght: normal;
   font-style: normal;
 }
+
+.swal2-icon-white {
+  filter: brightness(0) invert(1); /* SVG를 흰색으로 변경 */
+}
+
+.swal2-confirm {
+  border: 2px solid white;
+  border-radius: 0;
+}
+
+.swal2-confirm:hover {
+  background-color: white !important;
+  color: #1e3a8a !important;
+}
