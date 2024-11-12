@@ -7,6 +7,17 @@ const nextConfig = {
     });
     return config;
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination:
+          process.env.NODE_ENV === "development"
+            ? `${process.env.NEXT_PUBLIC_DEV_API_URL}/:path*`
+            : `${process.env.NEXT_PUBLIC_PRODUCTION_API_URL}/:path*`,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

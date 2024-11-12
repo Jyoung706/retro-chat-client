@@ -19,7 +19,7 @@ export default function SignupForm() {
     setNickname(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!id || !password || !nickname) {
@@ -28,47 +28,58 @@ export default function SignupForm() {
     }
 
     const formData = {
-      id,
+      account: id,
       password,
       nickname,
     };
-    console.log(formData);
-    router.push("/main");
+    try {
+      const response = await fetch("/api/auth/regist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const res = await response.json();
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
   };
   return (
-    <div className='border-4 text-xl w-1/2 h-[30rem] flex justify-center items-center'>
-      <form className='flex flex-col gap-8 w-4/5' onSubmit={handleSubmit}>
-        <div className='flex items-center'>
-          <label htmlFor='account' className='w-32 mr-4'>
+    <div className='border-4 text-base sm:text-lg md:text-xl w-full max-w-2xl p-4 sm:p-8 [&_input]:bg-inherit'>
+      <form className='flex flex-col sm:gap-8 w-full' onSubmit={handleSubmit}>
+        <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0'>
+          <label htmlFor='account' className='sm:w-32 sm:mr-4'>
             아이디 :
           </label>
           <input
             id='account'
-            className='bg-inherit border border-white focus:outline-none flex-1'
+            className='border border-white focus:outline-none w-full'
             type='text'
             value={id}
             onChange={handleIdChange}
           />
         </div>
-        <div className='flex items-center'>
-          <label htmlFor='password' className='w-32 mr-4'>
+        <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0'>
+          <label htmlFor='password' className='sm:w-32 sm:mr-4'>
             비밀번호 :{" "}
           </label>
           <input
             id='password'
-            className='bg-inherit border border-white focus:outline-none flex-1'
+            className='border border-white focus:outline-none w-full'
             value={password}
             type='password'
             onChange={handlePasswordChange}
           />
         </div>
-        <div className='flex items-center'>
-          <label htmlFor='nickname' className='w-32 mr-4'>
+        <div className='flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0'>
+          <label htmlFor='nickname' className='sm:w-32 sm:mr-4'>
             닉네임 :{" "}
           </label>
           <input
             id='nickname'
-            className='bg-inherit border border-white focus:outline-none flex-1'
+            className='border border-white focus:outline-none w-full'
             type='text'
             value={nickname}
             onChange={handleNicknameChange}
@@ -76,7 +87,7 @@ export default function SignupForm() {
         </div>
         <button
           type='submit'
-          className='bg-inherit border-2 mt-20 text-white py-2 px-4 hover:bg-blue-600'
+          className='border-2 mt-12 sm:mt-20 text-white py-2 px-4 hover:bg-blue-600'
         >
           회원가입
         </button>
