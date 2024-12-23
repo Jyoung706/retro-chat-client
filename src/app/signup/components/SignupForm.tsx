@@ -1,5 +1,7 @@
 "use client";
+import useAuthStore from "@/store/authStore";
 import { showAlert } from "@/utils/swal";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -8,6 +10,7 @@ export default function SignupForm() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
+  const authStore = useAuthStore();
 
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
@@ -33,15 +36,23 @@ export default function SignupForm() {
       nickname,
     };
     try {
-      const response = await fetch("/api/auth/regist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const res = await response.json();
-      console.log(res);
+      const response = await axios.post("/api/auth/regist", formData);
+      if (response.data.success) {
+        authStore.setAccessToken(response.data.access_token);
+        router.push("/main");
+      }
+      // const response = await fetch("/api/auth/regist", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(formData),
+      // });
+      // const result = await response.json();
+      // console.log(result);
+
+      // if (result.success) {
+      // }
     } catch (e) {
       console.error(e);
     }
