@@ -1,6 +1,8 @@
 import { create } from "zustand";
 
 interface User {
+  _id: string;
+  account: string;
   nickname: string;
 }
 
