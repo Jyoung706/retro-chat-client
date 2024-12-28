@@ -1,16 +1,16 @@
 "use client";
 import useAuthStore from "@/store/authStore";
 import { showAlert } from "@/utils/swal";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import axios from "@/lib/axios";
 
 export default function SignupForm() {
   const router = useRouter();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const authStore = useAuthStore();
+  const { setAccessToken } = useAuthStore();
 
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setId(e.target.value);
@@ -38,23 +38,11 @@ export default function SignupForm() {
     try {
       const response = await axios.post("/api/auth/regist", formData);
       if (response.data.success) {
-        authStore.setAccessToken(response.data.access_token);
+        setAccessToken(response.data.result.access_token);
         router.push("/main");
       }
-      // const response = await fetch("/api/auth/regist", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify(formData),
-      // });
-      // const result = await response.json();
-      // console.log(result);
-
-      // if (result.success) {
-      // }
     } catch (e) {
-      console.error(e);
+      showAlert("error", "회원가입 실패!", "아이디가 중복되었습니다.");
     }
   };
   return (

@@ -1,7 +1,6 @@
 import axios from "axios";
 import useAuthStore from "@/store/authStore";
 
-axios.defaults.baseURL = "/api";
 axios.defaults.timeout = 5000;
 axios.defaults.withCredentials = true;
 
