@@ -32,8 +32,12 @@ export default function LoginForm() {
       }
       router.push("/main");
     } catch (error) {
+      console.log(error);
       if (error instanceof AxiosError) {
-        if (error.response?.data.error.error === "Unauthorize") {
+        if (
+          error.response?.data.error.message === "Unauthorized" ||
+          error.response?.data.error.error === "Unauthorized"
+        ) {
           showAlert(
             "error",
             "로그인 실패!",
