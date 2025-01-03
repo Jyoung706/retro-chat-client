@@ -11,29 +11,16 @@
   font-style: normal;
 }
 
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
+.swal2-icon-white {
+  filter: brightness(0) invert(1); /* SVG를 흰색으로 변경 */
 }
 
-input {
-  caret-color: transparent;
+.swal2-confirm {
+  border: 2px solid white;
+  border-radius: 0;
 }
 
-input::after {
-  content: "";
-  position: absolute;
-  width: 8px;
-  height: 1.2em;
-  background-color: white;
-  animation: blink 1s infinite;
-}
-
-body {
-  font-family: "DungGeunMo", sans-serif;
+.swal2-confirm:hover {
+  background-color: white !important;
+  color: #1e3a8a !important;
 }

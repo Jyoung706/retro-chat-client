@@ -1,0 +1,242 @@
+[
+  {
+    "_id": "67769561758174afcb63f927",
+    "creator_id": "67768c25ebb5f41d42eef254",
+    "room_name": "준영 채팅방",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef254",
+        "joinedAt": "2025-01-02T13:32:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f928",
+    "creator_id": "67768c25ebb5f41d42eef255",
+    "room_name": "개발자 모임",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef255",
+        "joinedAt": "2025-01-02T14:15:20.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f929",
+    "creator_id": "67768c25ebb5f41d42eef256",
+    "room_name": "프로젝트 논의",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef256",
+        "joinedAt": "2025-01-02T15:45:17.746Z"
+      }
+    ],
+    "isPublic": false
+  },
+  {
+    "_id": "67769561758174afcb63f930",
+    "creator_id": "67768c25ebb5f41d42eef257",
+    "room_name": "일상 대화방",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef257",
+        "joinedAt": "2025-01-02T16:22:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f931",
+    "creator_id": "67768c25ebb5f41d42eef258",
+    "room_name": "스터디 그룹",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef258",
+        "joinedAt": "2025-01-02T17:10:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f932",
+    "creator_id": "67768c25ebb5f41d42eef259",
+    "room_name": "취미 공유방",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef259",
+        "joinedAt": "2025-01-02T18:05:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f933",
+    "creator_id": "67768c25ebb5f41d42eef260",
+    "room_name": "비밀 모임",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef260",
+        "joinedAt": "2025-01-02T19:30:17.746Z"
+      }
+    ],
+    "isPublic": false
+  },
+  {
+    "_id": "67769561758174afcb63f934",
+    "creator_id": "67768c25ebb5f41d42eef261",
+    "room_name": "게임 파티",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef261",
+        "joinedAt": "2025-01-02T20:15:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f935",
+    "creator_id": "67768c25ebb5f41d42eef262",
+    "room_name": "영화 토론방",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef262",
+        "joinedAt": "2025-01-02T21:00:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f936",
+    "creator_id": "67768c25ebb5f41d42eef263",
+    "room_name": "음악 감상실",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef263",
+        "joinedAt": "2025-01-02T22:45:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f937",
+    "creator_id": "67768c25ebb5f41d42eef264",
+    "room_name": "독서 모임",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef264",
+        "joinedAt": "2025-01-02T23:30:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f938",
+    "creator_id": "67768c25ebb5f41d42eef265",
+    "room_name": "여행 이야기",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef265",
+        "joinedAt": "2025-01-03T00:15:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f939",
+    "creator_id": "67768c25ebb5f41d42eef266",
+    "room_name": "요리 레시피",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef266",
+        "joinedAt": "2025-01-03T01:20:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f940",
+    "creator_id": "67768c25ebb5f41d42eef267",
+    "room_name": "운동 모임",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef267",
+        "joinedAt": "2025-01-03T02:10:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f941",
+    "creator_id": "67768c25ebb5f41d42eef268",
+    "room_name": "직장인 수다방",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef268",
+        "joinedAt": "2025-01-03T03:05:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f942",
+    "creator_id": "67768c25ebb5f41d42eef269",
+    "room_name": "주말 모임",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef269",
+        "joinedAt": "2025-01-03T04:00:17.746Z"
+      }
+    ],
+    "isPublic": false
+  },
+  {
+    "_id": "67769561758174afcb63f943",
+    "creator_id": "67768c25ebb5f41d42eef270",
+    "room_name": "아침 산책",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef270",
+        "joinedAt": "2025-01-03T05:30:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f944",
+    "creator_id": "67768c25ebb5f41d42eef271",
+    "room_name": "반려동물 모임",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef271",
+        "joinedAt": "2025-01-03T06:15:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f945",
+    "creator_id": "67768c25ebb5f41d42eef272",
+    "room_name": "문화생활",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef272",
+        "joinedAt": "2025-01-03T07:00:17.746Z"
+      }
+    ],
+    "isPublic": true
+  },
+  {
+    "_id": "67769561758174afcb63f946",
+    "creator_id": "67768c25ebb5f41d42eef273",
+    "room_name": "공부방",
+    "participants": [
+      {
+        "user": "67768c25ebb5f41d42eef273",
+        "joinedAt": "2025-01-03T08:20:17.746Z"
+      }
+    ],
+    "isPublic": true
+  }
+]
