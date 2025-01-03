@@ -3,11 +3,10 @@
 import useAuthStore from "@/store/authStore";
 import Link from "next/link";
 import { useState } from "react";
-import axios from "@/lib/axios";
 import useUserStore from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import { showAlert } from "@/utils/swal";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 
 export default function LoginForm() {
   const [id, setId] = useState("");

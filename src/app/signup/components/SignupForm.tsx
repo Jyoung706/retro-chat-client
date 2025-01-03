@@ -3,7 +3,7 @@ import useAuthStore from "@/store/authStore";
 import { showAlert } from "@/utils/swal";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import axios from "@/lib/axios";
+import axios from "axios";
 
 export default function SignupForm() {
   const router = useRouter();
