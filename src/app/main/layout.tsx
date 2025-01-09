@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import CreateRoomButton from "./components/CreateRoomButton";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -7,11 +8,15 @@ interface MainLayoutProps {
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className='main-layout'>
-      <header className='main-header'>{"헤더"}</header>
+      <header className='main-header text-center py-4 text-5xl mb-10 mt-10'>
+        {"90's 채팅"}
+      </header>
 
       <main className='main-content'>{children}</main>
 
-      <footer className='main-footer'>{"푸터"}</footer>
+      <footer className='main-footer flex justify-center items-center'>
+        <CreateRoomButton />
+      </footer>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Pagenation from "./components/Pagenation";
 import axios from "@/lib/axios";
 import useAuthStore from "@/store/authStore";
+import { useRouter } from "next/navigation";
 
 interface ChatRoom {
   _id: string;
@@ -20,6 +21,7 @@ export default function MainPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { isAuthenticated } = useAuthStore();
+  const router = useRouter();
 
   const getChatRoomList = async () => {
     try {
@@ -59,6 +61,10 @@ export default function MainPage() {
     }
   };
 
+  const handleRoomClick = (roomId: string) => {
+    router.push(`/room/${roomId}`);
+  };
+
   return (
     <div className='main-page font-mono p-4'>
       <div className='border-2 border-white p-4'>
@@ -77,7 +83,10 @@ export default function MainPage() {
                   .toString()
                   .padStart(2, "0")}
               </div>
-              <div className='text-green-400'>
+              <div
+                className='text-green-400 cursor-pointer hover:bg-blue-500/20'
+                onClick={() => handleRoomClick(room._id)}
+              >
                 {room.isPublic ? room.room_name : "[비공개] " + room.room_name}
               </div>
               <div className='text-blue-400'>{room.participants.length}명</div>
