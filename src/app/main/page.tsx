@@ -5,12 +5,15 @@ import axios from "@/lib/axios";
 import useAuthStore from "@/store/authStore";
 import { useRouter } from "next/navigation";
 import { ChatRoom } from "@/types/chat/chat.type";
+import useSocketStore from "@/store/socketStore";
 
 export default function MainPage() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { isAuthenticated } = useAuthStore();
+  const { getSocket } = useSocketStore();
+
   const router = useRouter();
 
   const getChatRoomList = async () => {
@@ -30,6 +33,8 @@ export default function MainPage() {
   useEffect(() => {
     if (isAuthenticated) {
       getChatRoomList();
+
+      const socket = getSocket();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
