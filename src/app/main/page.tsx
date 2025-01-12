@@ -4,17 +4,7 @@ import Pagenation from "./components/Pagenation";
 import axios from "@/lib/axios";
 import useAuthStore from "@/store/authStore";
 import { useRouter } from "next/navigation";
-
-interface ChatRoom {
-  _id: string;
-  creator_id: string;
-  room_name: string;
-  participants: {
-    user: string;
-    joinedAt: string;
-  }[];
-  isPublic: boolean;
-}
+import { ChatRoom } from "@/types/chat/chat.type";
 
 export default function MainPage() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
