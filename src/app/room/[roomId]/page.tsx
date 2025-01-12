@@ -13,13 +13,14 @@ interface RoomPageProps {
   };
 }
 
-// 서버 컴포넌트로 동작
 export default function RoomPage({ params }: RoomPageProps) {
   const { isAuthenticated } = useAuthStore();
   const [roomName, setRoomName] = useState("");
+  const [participantCount, setParticipantCount] = useState(0);
   const getRoomInfo = async () => {
     const roomInfo = await axios.get(`/api/chat/room/detail/${params.roomId}`);
     setRoomName(roomInfo.data.result.room_name);
+    setParticipantCount(roomInfo.data.result.participants.length);
   };
   useEffect(() => {
     if (isAuthenticated) {
@@ -29,7 +30,7 @@ export default function RoomPage({ params }: RoomPageProps) {
   }, [isAuthenticated]);
   return (
     <>
-      <RoomHeader roomName={roomName} />
+      <RoomHeader roomName={roomName} participantCount={participantCount} />
       <ChatMessages roomId={params.roomId} />
       <ChatInput roomId={params.roomId} />
     </>
