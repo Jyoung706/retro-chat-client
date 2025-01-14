@@ -6,13 +6,13 @@ import useAuthStore from "@/store/authStore";
 import { useRouter } from "next/navigation";
 import { ChatRoom } from "@/types/chat/chat.type";
 import useSocketStore from "@/store/socketStore";
+import { showAlert } from "@/utils/swal";
 
 export default function MainPage() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { isAuthenticated } = useAuthStore();
-  const { getSocket } = useSocketStore();
 
   const router = useRouter();
 
@@ -33,8 +33,6 @@ export default function MainPage() {
   useEffect(() => {
     if (isAuthenticated) {
       getChatRoomList();
-
-      const socket = getSocket();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
@@ -56,8 +54,25 @@ export default function MainPage() {
     }
   };
 
-  const handleRoomClick = (roomId: string) => {
-    router.push(`/room/${roomId}`);
+  const handleRoomClick = async (roomId: string) => {
+    try {
+      const enterRoomResult = await axios.post("/api/chat/room/enter", {
+        roomId,
+        password: "",
+      });
+      if (enterRoomResult.status === 200) {
+        router.push(`/room/${roomId}`);
+      } else {
+        return;
+      }
+    } catch (e) {
+      console.error(e);
+      showAlert(
+        "error",
+        "채팅방 입장에 실패했습니다.",
+        "존재하지 않는 방이거나 비밀번호가 틀렸습니다."
+      );
+    }
   };
 
   return (
