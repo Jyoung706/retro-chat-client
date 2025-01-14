@@ -45,6 +45,10 @@ const useSocketStore = create<SocketStore>((set, get) => ({
       console.log("채팅 소켓 연결 종료:", reason);
     });
 
+    socket.on("exception", (error) => {
+      console.error("채팅 소켓 에러 : ", error);
+    });
+
     set({ socket });
   },
 

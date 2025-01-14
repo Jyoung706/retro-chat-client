@@ -60,10 +60,8 @@ export default function MainPage() {
         roomId,
         password: "",
       });
-      if (enterRoomResult.status === 200) {
+      if (enterRoomResult.data.success) {
         router.push(`/room/${roomId}`);
-      } else {
-        return;
       }
     } catch (e) {
       console.error(e);
