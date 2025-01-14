@@ -1,4 +1,5 @@
-import { useRouter } from "next/navigation";
+import useSocketStore from "@/store/socketStore";
+import { useParams, useRouter } from "next/navigation";
 
 interface RoomHeaderProps {
   roomName: string;
@@ -10,12 +11,21 @@ export default function RoomHeader({
   participantCount,
 }: RoomHeaderProps) {
   const router = useRouter();
+  const params = useParams();
+  const { getSocket } = useSocketStore();
+
+  const handleLeaveRoom = async () => {
+    const roomId = params.roomId as string;
+    const socket = getSocket();
+    socket?.emit("leave_room", roomId);
+    router.push("/main");
+  };
 
   return (
     <div className='flex flex-col border-b-2 border-white pb-2 mb-4'>
       <div className='flex items-center justify-between'>
         <button
-          onClick={() => router.push("/main")}
+          onClick={handleLeaveRoom}
           className='text-xl hover:text-yellow-400'
         >
           ◀ 뒤로가기
