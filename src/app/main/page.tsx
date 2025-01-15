@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { ChatRoom } from "@/types/chat/chat.type";
 import useSocketStore from "@/store/socketStore";
 import { showAlert } from "@/utils/swal";
-import { SystemMessage } from "../room/[roomId]/interface/Message.interface";
 
 export default function MainPage() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
