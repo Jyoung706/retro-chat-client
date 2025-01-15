@@ -23,7 +23,7 @@ export default function ChatInput({ roomId }: { roomId: string }) {
           isSystem: false,
         },
         (cb: SocketResponse) => {
-          console.log(cb);
+          // console.log(cb);
         }
       );
       setMessage("");
