@@ -9,9 +9,22 @@ export default function ChatMessages({ roomId }: { roomId: string }) {
   const { getSocket } = useSocketStore();
   const socket = getSocket();
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const chatContainer = chatContainerRef.current;
+
+    if (!chatContainer) return;
+
+    const isNearBottom =
+      chatContainer.scrollHeight -
+        chatContainer.scrollTop -
+        chatContainer.clientHeight <
+      100;
+
+    if (isNearBottom) {
+      messagesEndRef.current?.scrollIntoView();
+    }
   };
 
   useEffect(() => {
@@ -35,14 +48,25 @@ export default function ChatMessages({ roomId }: { roomId: string }) {
   }, [socket, roomId]);
 
   return (
-    <div className='flex-1 overflow-y-auto mb-4'>
+    <div ref={chatContainerRef} className='flex-1 overflow-y-auto mb-4'>
       <div className='space-y-2'>
         {messages.map((msg) => (
           <div key={msg.id} className='text-white'>
-            {msg.sender_id === "System" ? "시스템 메세지" : msg.nickname}:{" "}
-            {msg.message}
+            {msg.sender_id === "System" || msg.nickname === "System" ? (
+              <div className='text-white text-center'>
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                <br />▶ {msg.message} ◀
+                <br />
+                ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+              </div>
+            ) : (
+              <>
+                {msg.nickname}: {msg.message}
+              </>
+            )}
           </div>
         ))}
+        <div ref={messagesEndRef} />
       </div>
     </div>
   );
