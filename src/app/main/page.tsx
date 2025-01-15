@@ -67,7 +67,7 @@ export default function MainPage() {
 
   const handleRoomClick = async (roomId: string) => {
     try {
-      const enterRoomResult = await axios.post("/api/chat/room/enter", {
+      const enterRoomResult = await axios.post("/api/chat/room/check", {
         roomId,
         password: "",
       });
