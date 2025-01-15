@@ -34,50 +34,43 @@ export default function MainPage() {
     }
   };
 
-  const handleParticipantChange = (data: {
-    type: "join" | "leave";
-    _id: string;
-    participant: string;
-  }) => {
-    setChatRooms((prev) =>
-      prev.map((room) => {
-        if (room._id === data._id && data.type === "join") {
-          return {
-            ...room,
-            participants: [
-              ...room.participants,
-              { user: data.participant, joinedAt: new Date().toISOString() },
-            ],
-          };
-        } else if (room._id === data._id && data.type === "leave") {
-          return {
-            ...room,
-            participants: room.participants.filter(
-              (participant) => participant.user !== data.participant
-            ),
-          };
-        }
-        return room;
-      })
-    );
-  };
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleParticipantUpdated = (data: {
+      roomId: string;
+      participants: Array<{ user: string; joinedAt: string }>;
+    }) => {
+      setChatRooms((prev) =>
+        prev.map((room) => {
+          if (room._id === data.roomId) {
+            return { ...room, participants: data.participants };
+          }
+          return room;
+        })
+      );
+    };
+
+    // 이벤트 리스너 등록
+    socket.off("room_created").on("room_created", getChatRoomList);
+    socket.off("room_deleted").on("room_deleted", getChatRoomList);
+    socket
+      .off("participant_updated")
+      .on("participant_updated", handleParticipantUpdated);
+
+    return () => {
+      console.log("소켓 이벤트 리스너 제거");
+      socket.off("room_created", getChatRoomList);
+      socket.off("room_deleted", getChatRoomList);
+      socket.off("participant_updated", handleParticipantUpdated);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
 
   useEffect(() => {
     if (isAuthenticated) {
       getChatRoomList();
     }
-
-    if (socket) {
-      socket.on("room_created", getChatRoomList);
-      socket.on("room_deleted", getChatRoomList);
-      socket.on("participants_change", handleParticipantChange);
-    }
-
-    return () => {
-      socket?.off("room_created", getChatRoomList);
-      socket?.off("room_deleted", getChatRoomList);
-      socket?.off("participants_change", handleParticipantChange);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
