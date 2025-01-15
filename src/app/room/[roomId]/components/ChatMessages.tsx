@@ -1,30 +1,46 @@
 "use client";
 
 import useSocketStore from "@/store/socketStore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Message } from "../interface/Message.interface";
 
 export default function ChatMessages({ roomId }: { roomId: string }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const { getSocket } = useSocketStore();
   const socket = getSocket();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   useEffect(() => {
     // 웹소켓 연결 또는 실시간 채팅 로직
-    socket?.on("receive_message", (data: Message) => {
+    if (!socket) return;
+    socket.emit("enter_room", { roomId, password: "" });
+
+    const handleReceiveMessage = (data: Message) => {
       setMessages((prevMessages) => [...prevMessages, data]);
-    });
+    };
+
+    socket?.on("receive_message", handleReceiveMessage);
 
     return () => {
-      socket?.off("receive_message");
+      socket?.off("receive_message", handleReceiveMessage);
     };
-  }, [socket]);
+  }, [socket, roomId]);
 
   return (
     <div className='flex-1 overflow-y-auto mb-4'>
       <div className='space-y-2'>
         {messages.map((msg) => (
           <div key={msg.id} className='text-white'>
-            {msg.sender_id}: {msg.message}
+            {msg.sender_id === "System" ? "시스템 메세지" : msg.nickname}:{" "}
+            {msg.message}
           </div>
         ))}
       </div>

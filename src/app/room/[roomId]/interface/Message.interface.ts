@@ -4,4 +4,5 @@ export interface Message {
   sender_id: string;
   message: string;
   isSystem: boolean;
+  nickname: string;
 }
