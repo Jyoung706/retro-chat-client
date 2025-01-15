@@ -7,6 +7,7 @@ import axios from "../../../lib/axios";
 import { useEffect, useState } from "react";
 import useAuthStore from "@/store/authStore";
 import useSocketStore from "@/store/socketStore";
+import { SystemMessage } from "./interface/Message.interface";
 
 interface RoomPageProps {
   params: {
@@ -30,7 +31,7 @@ export default function RoomPage({ params }: RoomPageProps) {
   useEffect(() => {
     if (!socket) return;
 
-    socket.on("receive_message", (data) => {
+    const handleParticipantCount = (data: SystemMessage) => {
       if (data.sender_id === "System") {
         if (data.type === "join") {
           setParticipantCount((prev) => prev + 1);
@@ -38,10 +39,11 @@ export default function RoomPage({ params }: RoomPageProps) {
           setParticipantCount((prev) => prev - 1);
         }
       }
-    });
+    };
+    socket.on("receive_message", handleParticipantCount);
 
     return () => {
-      socket.off("receive_message");
+      socket.off("receive_message", handleParticipantCount);
     };
   }, [socket]);
 

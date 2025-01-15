@@ -12,22 +12,26 @@ export default function AuthInitializer() {
   const router = useRouter();
   const pathname = usePathname();
   const { accessToken, setAccessToken } = useAuthStore();
-  const { connect, disconnect } = useSocketStore();
+  const { connect, disconnect, getSocket } = useSocketStore();
 
   useEffect(() => {
     const initializeAuth = async () => {
-      if (!PUBLIC_PATHS.includes(pathname) && !accessToken) {
-        const newAccessToken = await getNewAccessToken();
+      const socket = getSocket();
 
-        if (newAccessToken) {
-          setAccessToken(newAccessToken);
-          connect(newAccessToken);
-          console.log("accessToken refreshed");
-        } else {
-          router.push("/");
+      if (!PUBLIC_PATHS.includes(pathname)) {
+        if (!accessToken) {
+          const newAccessToken = await getNewAccessToken();
+          if (newAccessToken) {
+            setAccessToken(newAccessToken);
+            if (!socket) {
+              connect(newAccessToken);
+            }
+          } else {
+            router.push("/");
+          }
+        } else if (!socket) {
+          connect(accessToken);
         }
-      } else if (accessToken && !PUBLIC_PATHS.includes(pathname)) {
-        connect(accessToken);
       }
     };
 
@@ -39,7 +43,7 @@ export default function AuthInitializer() {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [accessToken, pathname]);
 
   return null;
 }

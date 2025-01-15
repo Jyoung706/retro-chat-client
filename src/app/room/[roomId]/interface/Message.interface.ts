@@ -6,3 +6,7 @@ export interface Message {
   isSystem: boolean;
   nickname: string;
 }
+
+export interface SystemMessage extends Message {
+  type: "join" | "leave";
+}

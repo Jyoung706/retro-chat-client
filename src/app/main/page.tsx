@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { ChatRoom } from "@/types/chat/chat.type";
 import useSocketStore from "@/store/socketStore";
 import { showAlert } from "@/utils/swal";
+import { SystemMessage } from "../room/[roomId]/interface/Message.interface";
 
 export default function MainPage() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
@@ -14,6 +15,7 @@ export default function MainPage() {
   const itemsPerPage = 10;
   const { isAuthenticated } = useAuthStore();
   const { getSocket } = useSocketStore();
+  const socket = getSocket();
 
   const router = useRouter();
 
@@ -25,25 +27,56 @@ export default function MainPage() {
           limit: itemsPerPage,
         },
       });
+
       setChatRooms(response.data.result);
     } catch (error) {
       console.error("채팅방 목록을 불러오는데 실패했습니다.", error);
     }
   };
 
+  const handleParticipantChange = (data: {
+    type: "join" | "leave";
+    _id: string;
+    participant: string;
+  }) => {
+    setChatRooms((prev) =>
+      prev.map((room) => {
+        if (room._id === data._id && data.type === "join") {
+          return {
+            ...room,
+            participants: [
+              ...room.participants,
+              { user: data.participant, joinedAt: new Date().toISOString() },
+            ],
+          };
+        } else if (room._id === data._id && data.type === "leave") {
+          return {
+            ...room,
+            participants: room.participants.filter(
+              (participant) => participant.user !== data.participant
+            ),
+          };
+        }
+        return room;
+      })
+    );
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
       getChatRoomList();
     }
-    const socket = getSocket();
+
     if (socket) {
       socket.on("room_created", getChatRoomList);
       socket.on("room_deleted", getChatRoomList);
+      socket.on("participants_change", handleParticipantChange);
     }
 
     return () => {
       socket?.off("room_created", getChatRoomList);
       socket?.off("room_deleted", getChatRoomList);
+      socket?.off("participants_change", handleParticipantChange);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
