@@ -6,6 +6,7 @@ import RoomHeader from "./components/RoomHeader";
 import axios from "../../../lib/axios";
 import { useEffect, useState } from "react";
 import useAuthStore from "@/store/authStore";
+import useSocketStore from "@/store/socketStore";
 
 interface RoomPageProps {
   params: {
@@ -17,11 +18,33 @@ export default function RoomPage({ params }: RoomPageProps) {
   const { isAuthenticated } = useAuthStore();
   const [roomName, setRoomName] = useState("");
   const [participantCount, setParticipantCount] = useState(0);
+  const { getSocket } = useSocketStore();
+  const socket = getSocket();
+
   const getRoomInfo = async () => {
     const roomInfo = await axios.get(`/api/chat/room/detail/${params.roomId}`);
     setRoomName(roomInfo.data.result.room_name);
     setParticipantCount(roomInfo.data.result.participants.length);
   };
+
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on("receive_message", (data) => {
+      if (data.sender_id === "System") {
+        if (data.type === "join") {
+          setParticipantCount((prev) => prev + 1);
+        } else if (data.type === "leave") {
+          setParticipantCount((prev) => prev - 1);
+        }
+      }
+    });
+
+    return () => {
+      socket.off("receive_message");
+    };
+  }, [socket]);
+
   useEffect(() => {
     if (isAuthenticated) {
       getRoomInfo();
