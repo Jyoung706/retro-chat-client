@@ -13,10 +13,10 @@ export default function RoomHeader({
   const router = useRouter();
   const params = useParams();
   const { getSocket } = useSocketStore();
+  const socket = getSocket();
 
   const handleLeaveRoom = async () => {
     const roomId = params.roomId as string;
-    const socket = getSocket();
     socket?.emit("leave_room", roomId);
     router.push("/main");
   };
@@ -30,10 +30,10 @@ export default function RoomHeader({
         >
           ◀ 뒤로가기
         </button>
-        <div className='text-3xl'>━━━━━━━━━━ {roomName} ━━━━━━━━━━</div>
+        <div className='text-3xl'> {roomName} </div>
         <div className='w-[100px]'></div>
       </div>
-      <div className='text-center text-yellow-400 mt-2'>
+      <div className='text-center text-green-400 mt-2'>
         현재 참가중인 유저 수 : {participantCount}명
       </div>
     </div>
