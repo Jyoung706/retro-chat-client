@@ -13,6 +13,7 @@ export default function MainPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { isAuthenticated } = useAuthStore();
+  const { getSocket } = useSocketStore();
 
   const router = useRouter();
 
@@ -34,6 +35,16 @@ export default function MainPage() {
     if (isAuthenticated) {
       getChatRoomList();
     }
+    const socket = getSocket();
+    if (socket) {
+      socket.on("room_created", getChatRoomList);
+      socket.on("room_deleted", getChatRoomList);
+    }
+
+    return () => {
+      socket?.off("room_created", getChatRoomList);
+      socket?.off("room_deleted", getChatRoomList);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 
