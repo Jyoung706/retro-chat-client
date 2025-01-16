@@ -21,7 +21,7 @@ const useSocketStore = create<SocketStore>((set, get) => ({
       `${
         isDev
           ? process.env.NEXT_PUBLIC_DEV_API_URL
-          : process.env.NEXT_PUBLIC_PROD_API_URL
+          : process.env.NEXT_PUBLIC_PRODUCTION_API_URL
       }/chats`,
       {
         auth: {
