@@ -2,8 +2,7 @@
 
 import useAuthStore from "@/store/authStore";
 import Link from "next/link";
-import { useState } from "react";
-import useUserStore from "@/store/userStore";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { showAlert } from "@/utils/swal";
 import axios, { AxiosError } from "axios";
@@ -12,8 +11,11 @@ export default function LoginForm() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const { setAccessToken } = useAuthStore();
-  const { setUserData } = useUserStore();
   const router = useRouter();
+
+  useEffect(() => {
+    sessionStorage.clear();
+  }, []);
 
   const handleLogin = async () => {
     try {
@@ -23,11 +25,8 @@ export default function LoginForm() {
       });
       if (response.data.success) {
         setAccessToken(response.data.result.access_token);
-        setUserData({
-          account: response.data.result.account,
-          nickname: response.data.result.nickname,
-          _id: response.data.result._id,
-        });
+        sessionStorage.setItem("un", response.data.result.nickname);
+        sessionStorage.setItem("id", response.data.result._id);
       }
       router.push("/main");
     } catch (error) {
@@ -72,6 +71,11 @@ export default function LoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className='w-full bg-inherit border border-white p-2 focus:outline-none'
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleLogin();
+            }
+          }}
         />
       </div>
       <div className='flex justify-center gap-10'>
