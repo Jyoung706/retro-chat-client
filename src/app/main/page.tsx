@@ -109,7 +109,7 @@ export default function MainPage() {
   };
 
   return (
-    <div className='main-page font-mono p-4'>
+    <div className='main-page p-4'>
       <div className='border-2 border-white p-4'>
         <div className='text-center border-b-2 border-white pb-2 mb-4'>
           ━━━━━━━━━━ 채팅방 목록 ━━━━━━━━━━
