@@ -58,7 +58,6 @@ export default function MainPage() {
       .on("participant_updated", handleParticipantUpdated);
 
     return () => {
-      console.log("소켓 이벤트 리스너 제거");
       socket.off("room_created", getChatRoomList);
       socket.off("room_deleted", getChatRoomList);
       socket.off("participant_updated", handleParticipantUpdated);

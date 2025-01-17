@@ -34,7 +34,7 @@ const useSocketStore = create<SocketStore>((set, get) => ({
 
     // 기본 이벤트 리스너 설정
     socket.on("connect", () => {
-      console.log("채팅 소켓 연결 성공!");
+      console.log("socket connected");
     });
 
     socket.on("connect_error", (error) => {
