@@ -10,6 +10,7 @@ export default function ChatMessages({ roomId }: { roomId: string }) {
   const socket = getSocket();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const userId = sessionStorage.getItem("id");
 
   const scrollToBottom = () => {
     const chatContainer = chatContainerRef.current;
@@ -61,7 +62,14 @@ export default function ChatMessages({ roomId }: { roomId: string }) {
               </div>
             ) : (
               <>
-                {msg.nickname}: {msg.message}
+                <span
+                  className={`${
+                    msg.sender_id === userId ? "bg-white text-blue-900" : ""
+                  }`}
+                >
+                  {msg.nickname}
+                </span>
+                : {msg.message}
               </>
             )}
           </div>
